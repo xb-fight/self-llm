@@ -19,15 +19,19 @@ print("=============Welcome to XVERSE chatbot, type 'exit' to exit.=============
 
 
 # 设置多轮对话
+history = []
 while True:
     user_input = input("\n帅哥美女请输入: ")
     if user_input.lower() == "exit":
         break
-    # 创建消息
-    history = [{"role": "user", "content": user_input}]
+
+    # 记录用户输入
+    history.append({"role": "user", "content": user_input})
+
+    # 获取模型回复
     response = model.chat(tokenizer, history)
     print("\nXVERSE-7B-Chat: {}".format(response))
 
-    # 添加回答到历史
+    # 保存模型回复，形成多轮历史
     history.append({"role": "assistant", "content": response})
 
